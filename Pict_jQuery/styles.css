@@ -1,0 +1,39 @@
+#head{
+    background: blue;
+    display: flex;
+    z-index: 999;
+    width: 100%;
+    top: 0;
+}
+#search{
+    /* z-index: ; */
+}
+#headlink{
+    display: flex;
+    margin-left: 400px;
+    color: white;
+}
+#headlink p{
+    padding: 14px 20px;   
+}
+#headfoot h4,h2 {
+    margin-bottom: 20px;
+}
+
+#navbar{
+    background: blue;
+    height: 50px;
+    display: flex;
+}
+#navbar a{
+    color: white;
+    text-decoration: none;
+    overflow:hidden;
+    padding: 14px 20px;
+    display: block;
+}
+
+#navbar a:hover{
+    background-color: white;
+    color: orange;
+}

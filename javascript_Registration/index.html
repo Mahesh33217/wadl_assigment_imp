@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration & User List</title>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Styles for user list table */
+        #userTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #userTable th,
+        #userTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #userTable th {
+            background-color: #f2f2f2;
+        }
+
+        #userTable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #userTable tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Styles for delete button */
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        .registerUserBtn {
+            margin: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>User List</h1>
+    <div class="registerUserBtn">
+        <button id="showFormBtn" onclick="showForm()">Register New User</button>
+    </div>
+
+    <!-- User registration form -->
+    <div id="registrationFormContainer" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideForm()">&times;</span>
+            <h2>User Registration</h2>
+            <form id="registrationForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required><br><br>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required><br><br>
+                <button type="button" onclick="registerUser()">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User list table -->
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>Sr. No</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="userList">
+            <!-- User list will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to show registration form
+        function showForm() {
+            document.getElementById('registrationFormContainer').style.display = 'block';
+        }
+
+        // Function to hide registration form
+        function hideForm() {
+            document.getElementById('registrationFormContainer').style.display = 'none';
+        }
+
+        // Function to handle user registration
+        function registerUser() {
+            var name = document.getElementById('name').value.trim();
+            var username = document.getElementById('username').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var city = document.getElementById('city').value.trim();
+
+            // Check if any field is empty
+            if (name === "" || username === "" || email === "" || phone === "" || city === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Save user data to local storage
+            var userData = {
+                name: name,
+                username: username,
+                email: email,
+                phone: phone,
+                city: city
+            };
+
+            // Retrieve existing user data from local storage
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Add new user data
+            users.push(userData);
+
+            // Save updated user data to local storage
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Refresh user list
+            displayUserList();
+
+            // Hide registration form
+            hideForm();
+        }
+
+        // Function to display user list
+        function displayUserList() {
+            var userList = document.getElementById('userList');
+            userList.innerHTML = ''; // Clear existing list
+
+            // Retrieve user data from local storage
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Loop through the array and display user data
+            users.forEach(function (user, index) {
+                var row = userList.insertRow();
+                var srNoCell = row.insertCell(0);
+                var nameCell = row.insertCell(1);
+                var usernameCell = row.insertCell(2);
+                var emailCell = row.insertCell(3);
+                var phoneCell = row.insertCell(4);
+                var cityCell = row.insertCell(5);
+                var actionCell = row.insertCell(6);
+
+                srNoCell.textContent = index + 1;
+                nameCell.textContent = user.name;
+                usernameCell.textContent = user.username;
+                emailCell.textContent = user.email;
+                phoneCell.textContent = user.phone;
+                cityCell.textContent = user.city;
+                actionCell.innerHTML = '<button onclick="deleteUser(' + index + ')">Delete</button>';
+            });
+        }
+
+        // Function to delete user
+        function deleteUser(index) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                // Retrieve user data from local storage
+                var users = JSON.parse(localStorage.getItem('users')) || [];
+
+                // Remove user at given index
+                users.splice(index, 1);
+
+                // Save updated user data to local storage
+                localStorage.setItem('users', JSON.stringify(users));
+
+                // Refresh user list
+                displayUserList();
+            }
+        }
+        // Function to clear local storage data on page refresh
+        window.onload = function () {
+            localStorage.removeItem('users');
+        };
+
+        // Display user list when the page loads
+        displayUserList();
+    </script>
+</body>
+
+</html>

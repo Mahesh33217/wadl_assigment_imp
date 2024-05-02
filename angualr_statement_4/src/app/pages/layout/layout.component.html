@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Home</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> -->
+    </ul>
+    <form class="d-flex">
+      <span class="text-white" style="margin: 6px; margin-right: 10px;">{{loggedUser?.name}} </span> 
+      <button class="btn btn-primary" type="button" (click)="onLogoff()" style="margin: 5px;">Logout</button>
+    </form>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

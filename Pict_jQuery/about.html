@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PICT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div id="header">
+        <div id="head">
+            <input type="search" id="search">
+            <div id="headlink">
+                <p>USEFUL LINK</p>
+                <p>WEBSITE FEEDBACK</p>
+                <p>PICT MIS LOGIN</p>
+            </div>
+        </div>
+        <center>
+            <div id="headfoot">
+                <h4 style="color: red; font-weight: bold">Society for Computer Technology and Research's</h4>
+                <h1 style="color: blue;"> PUNE INSTITUTE OF COMPUTER TECHNOLOGY</h1>
+                <h4 style="color: red; font-weight: bold">(An Autonomous Institute affiliated to Savitribai Phule Pune
+                    University)</h4>
+                <h4 style="color: red; font-weight: bold">AICTE APPROVED | ISO 9001:2015 | NAAC A+ Grade | NBA [All
+                    Eligible UG Programs]</h4>
+            </div>
+        </center>
+    </div>
+    <center>
+        <div id="navbar">
+            <a href="home.html">HOME</a>
+            <a href="dept.html">DEPARTMENT</a>
+            <a href="about.html">ABOUT US</a>
+        </div>
+    </center>
+
+    <div id="about"> 
+        <h1>This is about</h1>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        $(".home").on("swiperight", function(){
+            alert("You swipe right");
+            $.mobile.changePage("home.html");
+        });
+
+        $(".about").on("swipeleft`", function(){
+            alert("You swipe left");
+            $.mobile.changePage("about.html");
+        });
+
+        $(".dept").on("swipeleft", function(){
+            alert("You swipe left");
+            $.mobile.changePage("dept.html");
+        });
+    </script>
+
+</body>
+
+</html>

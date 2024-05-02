@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>All songs</h2>
+
+    <%if(songs.length > 0){%>
+
+        <table>
+            <tr>
+                <th>Song Name</th>
+                <th>Film</th>
+                <th>Singer</th>
+                <th>musicDirector</th>
+                <th>actor</th>
+                <th>actress</th>
+            </tr>
+        </table>
+
+        <% songs.forEach((song)=>{%>
+            <tr>
+                <td><%=song.songName%></td>
+                <td><%=song.film%></td>
+                <td><%=song.singer%></td>
+                <td><%=song.musicDirector%></td>
+                <td><%=song.actor%></td>
+                <td><%=song.actress%></td>
+                <td>
+                    <form method="post" action="/delete/<%= song._id %>">
+                        <input type="submit" value="delete" />
+                    </form>
+                </td>
+            </tr>
+            <% })%>
+        <%}else{ %>
+        <p>no Songs</p>
+        <%}%>
+    
+</body>
+</html>
